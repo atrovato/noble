@@ -13,16 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [
-          ubuntu-latest,
-          macos-latest,
-        ]
-        node: [
-          8,
-          10,
-          12,
-          13,
-        ]
+        os: [ubuntu-latest, macos-latest]
+        node: [8, 10, 12, 13]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -45,11 +37,20 @@ jobs:
             export CC="g++-4.8"
           fi
           npm install
+
+          if [ ${{ matrix.node }} = 8 ]; then
+            # mocha 8+ is not compatible with Node 8
+            npm install mocha@7.2.0
+          fi
+
           npm run test
       - name: Lint
         run: |
           if [ ${{ matrix.node }} = 6 ]; then
             # ESLint 6+ is not compatible with Node 6
+            exit 0
+          elif [ ${{ matrix.node }} = 8 ]; then
+            # ESLint 7+ is not compatible with Node 8
             exit 0
           fi
           npm run lint
