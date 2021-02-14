@@ -30,6 +30,11 @@ noble.on('discover', peripheral => {
 
 function connectAndSetUp (peripheral) {
   peripheral.connect(error => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
     console.log('Connected to', peripheral.id);
 
     // specify the services and characteristics to discover
@@ -47,6 +52,11 @@ function connectAndSetUp (peripheral) {
 }
 
 function onServicesAndCharacteristicsDiscovered (error, services, characteristics) {
+  if (error) {
+    console.error(error);
+    return;
+  }
+
   console.log('Discovered services and characteristics');
   const echoCharacteristic = characteristics[0];
 

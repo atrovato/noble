@@ -59,7 +59,17 @@ function explore (peripheral) {
   });
 
   peripheral.connect(function (error) {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
     peripheral.discoverServices([], function (error, services) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
       let serviceIndex = 0;
 
       async.whilst(
@@ -76,6 +86,11 @@ function explore (peripheral) {
           console.log(serviceInfo);
 
           service.discoverCharacteristics([], function (error, characteristics) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+
             let characteristicIndex = 0;
 
             async.whilst(
@@ -93,6 +108,11 @@ function explore (peripheral) {
                 async.series([
                   function (callback) {
                     characteristic.discoverDescriptors(function (error, descriptors) {
+                      if (error) {
+                        console.error(error);
+                        return;
+                      }
+
                       async.detect(
                         descriptors,
                         function (descriptor, callback) {
@@ -105,6 +125,10 @@ function explore (peripheral) {
                         function (userDescriptionDescriptor) {
                           if (userDescriptionDescriptor) {
                             userDescriptionDescriptor.readValue(function (error, data) {
+                              if (error) {
+                                console.error(error);
+                              }
+
                               if (data) {
                                 characteristicInfo += ` (${data.toString()})`;
                               }
@@ -122,6 +146,10 @@ function explore (peripheral) {
 
                     if (characteristic.properties.indexOf('read') !== -1) {
                       characteristic.read(function (error, data) {
+                        if (error) {
+                          console.error(error);
+                        }
+
                         if (data) {
                           const string = data.toString('ascii');
 
@@ -141,13 +169,21 @@ function explore (peripheral) {
                 ]);
               },
               function (error) {
+                if (error) {
+                  console.error(error);
+                }
+
                 serviceIndex++;
                 callback();
               }
             );
           });
         },
-        function (err) {
+        function (error) {
+          if (error) {
+            console.error(error);
+          }
+
           peripheral.disconnect();
         }
       );

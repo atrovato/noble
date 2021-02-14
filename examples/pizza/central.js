@@ -38,12 +38,21 @@ noble.on('discover', function (peripheral) {
   //
   // Once the peripheral has been discovered, then connect to it.
   //
-  peripheral.connect(function (err) {
+  peripheral.connect(function (error) {
+    if (error) {
+      console.error(error);
+    }
+
     //
     // Once the peripheral has been connected, then discover the
     // services and characteristics of interest.
     //
-    peripheral.discoverServices([pizzaServiceUuid], function (err, services) {
+    peripheral.discoverServices([pizzaServiceUuid], function (error, services) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
       services.forEach(function (service) {
         //
         // This must be the service we were looking for.
@@ -53,7 +62,12 @@ noble.on('discover', function (peripheral) {
         //
         // So, discover its characteristics.
         //
-        service.discoverCharacteristics([], function (err, characteristics) {
+        service.discoverCharacteristics([], function (error, characteristics) {
+          if (error) {
+            console.error(error);
+            return;
+          }
+
           characteristics.forEach(function (characteristic) {
             //
             // Loop through each characteristic and match them to the
@@ -118,17 +132,27 @@ function bakePizza () {
             if (data.length === 1) {
               const result = data.readUInt8(0);
               console.log('The result is',
-                result === pizza.PizzaBakeResult.HALF_BAKED ? 'half baked.'
-                  : result === pizza.PizzaBakeResult.BAKED ? 'baked.'
-                    : result === pizza.PizzaBakeResult.CRISPY ? 'crispy.'
-                      : result === pizza.PizzaBakeResult.BURNT ? 'burnt.'
-                        : result === pizza.PizzaBakeResult.ON_FIRE ? 'on fire!'
+                result === pizza.PizzaBakeResult.HALF_BAKED
+                  ? 'half baked.'
+                  : result === pizza.PizzaBakeResult.BAKED
+                    ? 'baked.'
+                    : result === pizza.PizzaBakeResult.CRISPY
+                      ? 'crispy.'
+                      : result === pizza.PizzaBakeResult.BURNT
+                        ? 'burnt.'
+                        : result === pizza.PizzaBakeResult.ON_FIRE
+                          ? 'on fire!'
                           : 'unknown?');
             } else {
               console.log('result length incorrect');
             }
           });
-          pizzaBakeCharacteristic.subscribe(function (err) {
+          pizzaBakeCharacteristic.subscribe(function (error) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+
             //
             // Bake at 450 degrees!
             //

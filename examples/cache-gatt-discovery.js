@@ -89,6 +89,11 @@ const findServices = function (noble, peripheral) {
   });
 
   peripheral.discoverServices([], (error, services) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
     let sensorCharacteristic;
 
     servicesToRead = services.length;
@@ -108,6 +113,11 @@ const findServices = function (noble, peripheral) {
       });
 
       service.discoverCharacteristics([], function (error, characteristics) {
+        if (error) {
+          console.error(error);
+          return;
+        }
+
         console.log(`SRV\t${service.uuid} characteristic decoded data: `);
         for (let j = 0; j < characteristics.length; j++) {
           const ch = characteristics[j];

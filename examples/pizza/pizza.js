@@ -41,11 +41,15 @@ Pizza.prototype.bake = function (temperature) {
   console.log('baking pizza at', temperature, 'degrees for', time, 'milliseconds');
   setTimeout(function () {
     const result =
-      (temperature < 350) ? PizzaBakeResult.HALF_BAKED
-        : (temperature < 450) ? PizzaBakeResult.BAKED
-          : (temperature < 500) ? PizzaBakeResult.CRISPY
-            : (temperature < 600) ? PizzaBakeResult.BURNT
-              : PizzaBakeResult.ON_FIRE;
+      (temperature < 350)
+        ? PizzaBakeResult.HALF_BAKED
+        : (temperature < 450)
+            ? PizzaBakeResult.BAKED
+            : (temperature < 500)
+                ? PizzaBakeResult.CRISPY
+                : (temperature < 600)
+                    ? PizzaBakeResult.BURNT
+                    : PizzaBakeResult.ON_FIRE;
     self.emit('ready', result);
   }, time);
 };

@@ -59,7 +59,8 @@
     "ws": "^7.4.2"
   },
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint \"**/*.js\"",
+    "lint-fix": "eslint \"**/*.js\" --fix",
     "test": "mocha -R spec test/*.js"
   },
   "browser": {
