@@ -1,5 +1,6 @@
 require('should');
 const sinon = require('sinon');
+const { fake, assert } = sinon;
 
 const Noble = require('../lib/noble');
 
@@ -14,11 +15,16 @@ describe('Noble', () => {
     mockBindings = {
       init: () => {},
       on: () => {},
+      setScanParameters: fake.returns(null),
       startScanning: sinon.spy(),
       stopScanning: sinon.spy()
     };
 
     noble = new Noble(mockBindings);
+  });
+
+  afterEach(() => {
+    sinon.reset();
   });
 
   describe('startScanningAsync', () => {
@@ -64,6 +70,20 @@ describe('Noble', () => {
       const promise = noble.stopScanningAsync();
       noble.emit('scanStop');
       await promise.should.be.resolved();
+    });
+  });
+
+  describe('setScanParameters', () => {
+    it('should delegate to binding', async () => {
+      const interval = 'interval';
+      const window = 'window';
+
+      const promise = noble.setScanParameters(interval, window);
+      noble.emit('scanParametersSet');
+      await promise;
+
+      assert.calledOnce(mockBindings.setScanParameters);
+      assert.calledWith(mockBindings.setScanParameters, interval, window);
     });
   });
 });
