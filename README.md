@@ -61,15 +61,17 @@ noble.on('discover', async (peripheral) => {
 #### OS X
 
  * Install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
- * On newer versions of OSX, allow bluetooth access on the terminal app: "System Preferences" —> "Security & Privacy" —> "Bluetooth" -> Add terminal app (see [Sandboxed terminal](https://github.com/abandonware/noble#sandboxed-terminal))
+ * On newer versions of OSX, allow bluetooth access on the terminal app: "System Preferences" —> "Security & Privacy" —> "Bluetooth" -> Add terminal app (see [Sandboxed terminal](#sandboxed-terminal))
 
 #### Linux
 
  * Kernel version 3.6 or above
- * `libbluetooth-dev`
- * Run the following command to grant node the necessary privileges to read BLE data: `sudo setcap cap_net_raw+eip $(eval readlink -f $(which node))` ([Explanation](https://github.com/abandonware/noble#running-without-rootsudo-linux-specific))
+ * `libbluetooth-dev` needs to be installed. For instructions for specific distributions, see below.
+ * To set the necessary privileges to run without sudo, [see this section](#running-without-rootsudo-linux-specific). This is required for all distributions (Raspbian, Ubuntu, Fedora, etc). You will not get any errors if running without sudo, but nothing will happen.
 
 ##### Ubuntu, Debian, Raspbian
+
+See the [generic Linux notes above](#linux) first.
 
 ```sh
 sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
@@ -81,11 +83,15 @@ Make sure `node` is on your `PATH`. If it's not, some options:
 
 ##### Fedora and other RPM-based distributions
 
+See the [generic Linux notes above](#linux) first.
+
 ```sh
 sudo yum install bluez bluez-libs bluez-libs-devel
 ```
 
 ##### Intel Edison
+
+See the [generic Linux notes above](#linux) first.
 
 See [Configure Intel Edison for Bluetooth LE (Smart) Development](http://rexstjohn.com/configure-intel-edison-for-bluetooth-le-smart-development/).
 
@@ -117,7 +123,7 @@ Install the required tools and configurations using Microsoft's [windows-build-t
 npm install --global --production windows-build-tools
 ```
 
-[node-bluetooth-hci-socket prerequisites](https://github.com/abandonware/node-bluetooth-hci-socket#windows)
+[node-bluetooth-hci-socket prerequisites](#windows)
    * Compatible Bluetooth 4.0 USB adapter
    * [WinUSB](https://msdn.microsoft.com/en-ca/library/windows/hardware/ff540196(v=vs.85).aspx) driver setup for Bluetooth 4.0 USB adapter, using [Zadig tool](http://zadig.akeo.ie/)
 
