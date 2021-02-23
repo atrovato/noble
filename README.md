@@ -179,6 +179,7 @@ API structure:
   * [_Event: Scanning stopped_](#event-scanning-stopped)
   * [_Event: Peripheral discovered_](#event-peripheral-discovered)
   * [_Event: Warning raised_](#event-warning-raised)
+* [Reset device](#reset-device)
 * [Peripheral](#peripheral)
   * [Connect](#connect)
   * [_Event: Connected_](#event-connected)
