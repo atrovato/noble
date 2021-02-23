@@ -151,7 +151,7 @@ For example, in case of the "discover services" operation of Peripheral:
    ```javascript
    peripheral.discoverServices((error, services) => {
      // callback - handle error and services
-   }); 
+   });
    ```
 * There's a `discoverServicesAsync` method returning a Promise:
   ```javascript
@@ -284,7 +284,7 @@ The event is emitted when:
 noble.on('discover', callback(peripheral));
 ```
 
-* `peripheral`: 
+* `peripheral`:
   ```javascript
   {
     id: '<id>',
@@ -556,7 +556,7 @@ characteristic.discoverDescriptors([callback(error, descriptors)]);
 ```javascript
 characteristic.once('descriptorsDiscover', callback(descriptors));
 ```
-* `descriptors`: 
+* `descriptors`:
   ```javascript
   [
     {
@@ -612,7 +612,7 @@ sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 
 This grants the `node` binary `cap_net_raw` privileges, so it can start/stop BLE advertising.
 
-__Note:__ The above command requires `setcap` to be installed. 
+__Note:__ The above command requires `setcap` to be installed.
 It can be installed the following way:
 
  * apt: `sudo apt-get install libcap2-bin`
@@ -620,7 +620,7 @@ It can be installed the following way:
 
 ### Multiple Adapters (Linux-specific)
 
-`hci0` is used by default. 
+`hci0` is used by default.
 
 To override, set the `NOBLE_HCI_DEVICE_ID` environment variable to the interface number.
 
@@ -654,9 +654,9 @@ sudo NOBLE_MULTI_ROLE=1 node <your file>.js
 
 This limit is imposed by the Bluetooth adapter hardware as well as its firmware.
 
-| Platform |     |
-| :------- | --- |
-| OS X 10.11 (El Capitan) | 6 |
+| Platform                          |                       |
+| :-------------------------------- | --------------------- |
+| OS X 10.11 (El Capitan)           | 6                     |
 | Linux/Windows - Adapter-dependent | 5 (CSR based adapter) |
 
 ### Sandboxed terminal
