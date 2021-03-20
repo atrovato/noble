@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-18.04, macos-latest]
         node: [8, 10, 12, 13, 14]
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: |
-          if [ ${{ matrix.os }} = ubuntu-latest ]; then
+          if [ ${{ matrix.os }} = ubuntu-18.04 ]; then
             sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
             sudo apt -qq update
             sudo apt install -y g++-4.8
@@ -33,7 +33,7 @@ jobs:
             # Mac bindings will currently not build on Node 6
             exit 0
           fi
-          if [ ${{ matrix.os }} = ubuntu-latest ]; then
+          if [ ${{ matrix.os }} = ubuntu-18.04 ]; then
             export CC="g++-4.8"
           fi
           npm install
