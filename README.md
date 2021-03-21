@@ -54,6 +54,7 @@ noble.on('discover', async (peripheral) => {
     * [Intel Edison](#intel-edison)
   * [FreeBSD](#freebsd)
   * [Windows](#windows)
+  * [Docker](#docker)
 * [Installing and using the package](#installing-and-using-the-package)
 
 ### Prerequisites
@@ -128,6 +129,10 @@ npm install --global --production windows-build-tools
    * [WinUSB](https://msdn.microsoft.com/en-ca/library/windows/hardware/ff540196(v=vs.85).aspx) driver setup for Bluetooth 4.0 USB adapter, using [Zadig tool](http://zadig.akeo.ie/)
 
 See [@don](https://github.com/don)'s setup guide on [Bluetooth LE with Node.js and Noble on Windows](https://www.youtube.com/watch?v=mL9B8wuEdms&feature=youtu.be&t=1m46s)
+
+#### Docker
+
+Make sur your container runs with `--network=host` options and all specific environment preriquisites are verified.
 
 ### Installing and using the package
 
